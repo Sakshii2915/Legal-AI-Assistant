@@ -15,3 +15,4 @@ gunicorn
 whitenoise
 g4f
 duckduckgo-search
+Pillow
