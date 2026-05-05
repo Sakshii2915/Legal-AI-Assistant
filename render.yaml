@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: legal-ai-assistant
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn legalAI.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.3
+      - key: WEB_CONCURRENCY
+        value: 4

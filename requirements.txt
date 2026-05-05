@@ -11,3 +11,7 @@ accelerate
 pymupdf
 dotenv
 django-allauth
+gunicorn
+whitenoise
+g4f
+duckduckgo-search
