@@ -2,6 +2,7 @@ services:
   - type: web
     name: legal-ai-assistant
     env: python
+    plan: free
     buildCommand: "./build.sh"
     startCommand: "gunicorn legalAI.wsgi:application"
     envVars:
