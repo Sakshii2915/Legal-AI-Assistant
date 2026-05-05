@@ -55,18 +55,18 @@ def signup_view(request):
             return render(request, 'signup.html', {'error': 'Email already registered'})
 
 
-        otp = generate_otp()
-        request.session['signup_data'] = {
-            'name': name,
-            'email': email,
-            'password': password,
-            'otp': otp
-        }
+        # Bypassing OTP because Render Free Tier blocks SMTP
+        user = User.objects.create_user(
+            username=email,
+            email=email,
+            password=password
+        )
+        user.profile.name = name
+        user.profile.otp_verified = True
+        user.profile.save()
 
-        email_sent, err_msg = send_otp_via_email(email, otp)
-        if not email_sent:
-            return render(request, 'signup.html', {'error': f'Email Error: {err_msg}'})
-        return redirect('verify_otp')
+        login(request, user)
+        return redirect('dashboard')
 
     return render(request, 'signup.html')
 
@@ -387,13 +387,10 @@ def forgot_password_view(request):
         email = request.POST.get('email')
         try:
             user = User.objects.get(email=email)
-            otp = generate_otp()
-            user.profile.otp = otp
-            user.profile.save()
-
-            email_sent, err_msg = send_otp_via_email(email, otp)
+            # Bypassing OTP because Render Free Tier blocks SMTP
             request.session['reset_email'] = email
-            return redirect('reset_password_otp')
+            request.session['otp_verified_for_reset'] = True
+            return redirect('reset_password')
         except User.DoesNotExist:
             return render(request, 'forgot_password.html', {'error': 'No account found with this email'})
     return render(request, 'forgot_password.html')
