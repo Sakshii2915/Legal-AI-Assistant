@@ -28,13 +28,13 @@ def send_otp_via_email(email, otp):
     message = f'Your OTP for LegalAI signup is: {otp}\n\nThis OTP will expire soon. Do not share it with anyone.'
     from_email = 'Legal AI <' + settings.EMAIL_HOST_USER + '>'
     if not settings.EMAIL_HOST_USER:
-        return False
+        return False, "EMAIL_HOST_USER is not configured on the server."
     try:
         send_mail(subject, message, from_email, [email], fail_silently=False)
-        return True
+        return True, ""
     except Exception as e:
         print(f"Email send error: {e}")
-        return False
+        return False, str(e)
 
 
 def entry(request):
@@ -63,9 +63,9 @@ def signup_view(request):
             'otp': otp
         }
 
-        email_sent = send_otp_via_email(email, otp)
+        email_sent, err_msg = send_otp_via_email(email, otp)
         if not email_sent:
-            return render(request, 'signup.html', {'error': 'Failed to send OTP email. Please try again.'})
+            return render(request, 'signup.html', {'error': f'Email Error: {err_msg}'})
         return redirect('verify_otp')
 
     return render(request, 'signup.html')
@@ -391,7 +391,7 @@ def forgot_password_view(request):
             user.profile.otp = otp
             user.profile.save()
 
-            send_otp_via_email(email, otp)
+            email_sent, err_msg = send_otp_via_email(email, otp)
             request.session['reset_email'] = email
             return redirect('reset_password_otp')
         except User.DoesNotExist:
