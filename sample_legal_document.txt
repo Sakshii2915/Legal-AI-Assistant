@@ -1,0 +1,43 @@
+SERVICE AGREEMENT
+
+This Service Agreement ("Agreement") is entered into as of January 1, 2024, by and between:
+
+ABC Technologies Pvt. Ltd., a company incorporated under the Companies Act, 2013, with its registered office at 123 Tech Park, Bangalore, Karnataka ("Service Provider")
+
+AND
+
+XYZ Solutions Ltd., a company incorporated under the Companies Act, 2013, with its registered office at 456 Business Hub, Mumbai, Maharashtra ("Client")
+
+1. SERVICES
+The Service Provider agrees to provide software development and maintenance services to the Client as described in Exhibit A attached hereto ("Services").
+
+2. TERM
+This Agreement shall commence on January 1, 2024, and shall continue for a period of twelve (12) months, unless terminated earlier as provided herein.
+
+3. COMPENSATION
+In consideration for the Services, the Client shall pay the Service Provider a monthly fee of ₹50,000 (Indian Rupees Fifty Thousand Only), payable within 15 days of receipt of invoice.
+
+4. CONFIDENTIALITY
+Both parties agree to maintain the confidentiality of all proprietary information shared during the term of this Agreement and shall not disclose such information to any third party without prior written consent.
+
+5. INTELLECTUAL PROPERTY
+All intellectual property created by the Service Provider during the performance of the Services shall remain the exclusive property of the Service Provider, unless otherwise agreed in writing.
+
+6. TERMINATION
+Either party may terminate this Agreement upon thirty (30) days written notice to the other party. In the event of termination, the Client shall pay for all Services rendered up to the effective date of termination.
+
+7. GOVERNING LAW
+This Agreement shall be governed by and construed in accordance with the laws of India. Any disputes arising out of this Agreement shall be subject to the exclusive jurisdiction of the courts in Bangalore, Karnataka.
+
+8. AMENDMENTS
+No amendment to this Agreement shall be effective unless in writing and signed by both parties.
+
+IN WITNESS WHEREOF, the parties have executed this Agreement as of the date first written above.
+
+For ABC Technologies Pvt. Ltd.:
+_________________________
+Director
+
+For XYZ Solutions Ltd.:
+_________________________
+Director
