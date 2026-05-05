@@ -18,7 +18,7 @@ SECRET_KEY = 'django-insecure-*mpxoxa=^kuu1ww0_65al%ngtlap-%c3&-5kb#$6(l_ksy22@#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*'] # Required for Render to route traffic
 
 
 # Application definition

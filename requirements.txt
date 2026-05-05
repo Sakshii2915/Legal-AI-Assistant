@@ -9,7 +9,7 @@ django
 torch
 accelerate
 pymupdf
-dotenv
+python-dotenv
 django-allauth
 gunicorn
 whitenoise
