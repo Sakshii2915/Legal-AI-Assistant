@@ -258,6 +258,7 @@ def upload_pdf_view(request):
 
 from legalAI.openrouter_utils import call_openrouter_free
 from legalAI.wiki_utils import search_wikipedia
+from legalAI.knowledge_corrections import get_correction
 
 def generate_legal_answer(context, question):
     system_prompt = (
@@ -265,7 +266,10 @@ def generate_legal_answer(context, question):
         "Provide factual, direct, and concise answers citing relevant Acts, Sections, and Precedents under Indian Law. "
         "CRITICAL INSTRUCTION: For new cases from July 2024 onwards, note that the Indian Penal Code (IPC) has been replaced by the Bharatiya Nyaya Sanhita (BNS), "
         "the Code of Criminal Procedure (CrPC) by the Bharatiya Nagarik Suraksha Sanhita (BNSS), "
-        "and the Indian Evidence Act by the Bharatiya Sakshya Adhiniyam (BSA). Always reference these new laws when asked about recent or new cases. "
+        "and the Indian Evidence Act by the Bharatiya Sakshya Adhiniyam (BSA). "
+        "WARNING: Section numbers in BNS/BNSS/BSA are DIFFERENT from IPC/CrPC. DO NOT assume a section number in the new laws maps to the same topic as the old laws. "
+        "For example, Section 175 BNSS is NOT about documents (as IPC 175 was), but about the power to investigate cognizable cases. "
+        "Always double-check new law section numbers against provided background information. "
         "Do not guess historical dates or facts if unsure. Avoid rambling."
     )
     
@@ -274,10 +278,15 @@ def generate_legal_answer(context, question):
     if not context or len(context) < 100:
         wiki_context = search_wikipedia(question)
     
+    # Check for known corrections (ground truth)
+    correction = get_correction(question)
+    if correction:
+        wiki_context = f"GROUND TRUTH CORRECTION (Prioritize this): {correction}\n\n" + wiki_context
+
     prompt = f"User Question:\n{question}"
     
     if wiki_context:
-        prompt = f"Factual Background Information from Wikipedia (Use this to ensure 100% accuracy, but format your answer as an expert legal assistant):\n{wiki_context}\n\n" + prompt
+        prompt = f"Factual Background Information (Use this to ensure 100% accuracy, but format your answer as an expert legal assistant):\n{wiki_context}\n\n" + prompt
         
     if context:
         prompt = f"Context from uploaded document:\n{context}\n\n" + prompt
